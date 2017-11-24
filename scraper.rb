@@ -32,7 +32,7 @@ end
 
 def birthPlace(value)
   begin
-    birthPlace = value["birthPlace"].value
+    birthPlace = value["birthPlace"].value.split('/').last
   rescue
     birthPlace = nil
   end
@@ -41,7 +41,7 @@ end
 
 def gender(value)
   begin
-    gender = value["gender"].value
+    gender = value["gender"].value.split('/').last
   rescue
     gender = nil
   end
@@ -87,9 +87,9 @@ json.each_with_index do |item,key|
     p item["name"]
     json[key] = getWikidata(item["id"], item)
     p "-------------------------------------------------------------------------"
-    ScraperWiki.save_sqlite(["name"], json[key])
 end
 
+ScraperWiki.save_sqlite(["name"], json)
 
 # # Find somehing on the page using css selectors
 
