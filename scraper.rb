@@ -75,7 +75,7 @@ def getWikidata(id, original)
     original
   end
 end
-
+ScraperWiki.sqliteexecute('DROP TABLE data') rescue nil
 # # Read in a page
 api_key = ENV["MORPH_API_KEY"]
 url = "https://api.morph.io/everypolitician-scrapers/hellenic-parliament-wikipedia/data.json?key=" + api_key + "&query=select%20*%20from%20%22data%22"
@@ -87,7 +87,7 @@ json.each_with_index do |item,key|
     p item["name"]
     json[key] = getWikidata(item["id"], item)
     p "-------------------------------------------------------------------------"
-
+    ScraperWiki.save_sqlite(["name"], json[key])
 end
 
 
@@ -95,8 +95,8 @@ end
 
 #
 # # Write out to the sqlite database using scraperwiki library
-ScraperWiki.sqliteexecute('DROP TABLE data') rescue nil
-ScraperWiki.save_sqlite(["name"], json)
+
+
 #
 # # An arbitrary query against the database
 # ScraperWiki.select("* from data where 'name'='peter'")
