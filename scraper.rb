@@ -75,7 +75,7 @@ def getWikidata(id, original)
     original
   end
 end
-ScraperWiki.sqliteexecute('DROP TABLE data') rescue nil
+#ScraperWiki.sqliteexecute('DROP TABLE data') rescue nil
 # # Read in a page
 api_key = ENV["MORPH_API_KEY"]
 url = "https://api.morph.io/everypolitician-scrapers/hellenic-parliament-wikipedia/data.json?key=" + api_key + "&query=select%20*%20from%20%22data%22"
